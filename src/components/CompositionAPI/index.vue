@@ -8,6 +8,14 @@ export default {
 <script>
 // 组合式api各个阶段生命周期在选项api各个阶段之前。
 // 不推荐混用！实例可访问setup内部，但setup不能访问实例。
+import mainStore from '../pinia';
+// 创建store 
+const store = mainStore();
+// 解构，无响应式
+const { hello } = store;
+// 响应式
+const { hello: _hello } = storeToRefs(store);
+
 import {
     onMounted,
     onUnmounted,
@@ -35,6 +43,7 @@ import {
     isReadonly,
     defineAsyncComponent,
     Suspense,
+    getCurrentInstance,
     // useContext, // 废弃
 } from 'vue';
 import keepalive from '../KeepAlive/index.vue';
@@ -55,6 +64,9 @@ export default {
     // context 上下文，包括：attrs属性、emit发布事件、slots插槽、scopedSlots、refs等
     setup(props, context) {
         console.log('setup');
+
+        // 组合api无法获取this实例，可以通过下面方法获取
+        const instance = getCurrentInstance();
 
         // 异步组件，网速慢或者十分耗性能时，异步加载组件，先静态，后动态，静态页面是一起渲染解析的。
         const AsyncKeepAlive = defineAsyncComponent(() => import('../KeepAlive/index.vue'));
@@ -250,13 +262,18 @@ export default {
     <div id="teleport-test"></div>
     <div ref="ahxc">{{ name }}</div>
     <div ref="ahxc">{{ age1 }}</div>
+    <div>pinia:{{ store.hello }}</div>
     <button @click="alertName">alertName</button>
     <button @click="emit('emit1', 666)">alertName</button>
-    <!-- 子组件上直接定义原生事件，省去.native修饰符。 -->
+    <button @click="emit('emit1', 666)">alertName</button>
+    <!-- 父组件可以直接定义子组件原生事件，省去.native修饰符。 -->
+    <!-- 父组件组件可以通过@hook:mounted监听子组件，也可以用子组件各个阶段周期发布this.$emit的办法，然后父组件监听 -->
     <keepalive
+      @click="childClick"
+      @hook:mounted=""
+      @mounted=""
       ref="keepalive"
       class="test-class"
-      @click="childClick"
       :name="this.name"
     ></keepalive>
 </template>

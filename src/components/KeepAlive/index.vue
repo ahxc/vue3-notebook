@@ -1,5 +1,5 @@
 <script setup>
-import { inject, onMounted, reactive, ref, useAttrs } from 'vue';
+import { getCurrentInstance, inject, onMounted, reactive, ref, useAttrs } from 'vue';
 
 // 使用keepAlive后，预挂载和挂载钩子只会执行一次，卸载钩子失效，
 // 所以相关的挂载逻辑或则卸载逻辑需要卸载activated和deactivated中
@@ -31,7 +31,9 @@ const props = defineProps({
     name: String,
 });
 
-// 如果没有用到props则会传递class style 等以外的数据，包括事件，数据，方法等。用到了props怎会分流，只包含事件。
+const instance = getCurrentInstance();
+
+// 如果没有用到defineprops则会传递class style 等以外的数据，包括事件，数据，方法等。用到了props怎会分流，只包含事件。
 const attrs = useAttrs();
 const man = reactive({ name: 'ahxc', age: '18' });
 const woman = reactive({ name: 'xxx', age: '18' });
@@ -58,10 +60,15 @@ function emittest(params) {
     emit('emit2', 666);
 }
 
+const ahxc = ref(null)
+
 </script>
 
 <template>
-    <div @click="emit('emit1', 666)">我只是名字叫keepalive记录vue3相关知识点</div>
+    <div
+      @click="emit('emit1', 666)"
+      ref="ahxc"
+    >我只是名字叫keepalive记录vue3相关知识点</div>
 </template>
 
 <style scoped lang="less">

@@ -3,8 +3,9 @@ import { createApp, } from 'vue'; // vue 引入也发生了变化，需要解构
 import './style.css';
 import App from './App.vue';
 import router from "./router/index";
+import { createPinia } from 'pinia';
 
-createApp(App).use(router).mount('#app');
+createApp(App).use(router).use(createPinia()).mount('#app');
 
 // vue3 依赖新一代脚手架 vite 构建。之前vue-cli，react-cli都是webpack
 
