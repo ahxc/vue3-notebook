@@ -41,7 +41,7 @@ const woman = reactive({ name: 'xxx', age: '18' });
 const alertInfo = () => {
     alert('我是子组件defineExpose暴露给父组件的方法');
 };
-// 暴露属性或方法给父组件使用
+// 暴露属性或方法给父组件使用 pname ref名字
 // 父组件可以直接通过 pname.name 或者 this.$refs.pname.name调用
 defineExpose({
     man,

@@ -85,7 +85,7 @@ export default {
 
         // 侦听器
         const sum = ref(0);// 监听多个可以传递[sum,sum1,...]，
-        const sumObj = ref({ a: 1, b: 2 }); // reactive同理，如果是reactive对象数据类型默认开启深度监听，且配置无效，ref且引用类型的话的话可以配置true到.value（reactive）
+        const sumObj = ref({ a: 1, b: 2 }); // reactive 同理，如果是reactive对象数据类型默认开启深度监听，且配置无效，ref且引用类型的话的话可以配置true到.value（reactive）
         watch(() => sumObj, (newValue, oldValue) => {
             // ! 版本3.3 引用数据类型 newValue 和 oldvalue 存在引用关联一致。
             console.log(`我监听到了 ref 基础数据和引用数据类型改变`, newValue, oldValue);
@@ -104,7 +104,8 @@ export default {
             emit('emit2', 666);
         }
 
-        // 响应式
+        // 响应式数据
+        // !注意 ref的不管何处使用直接调用字面量就可以，如果是修改才通过 ref.value，通过ref.value的调用会得到undefined，比如传递给props
         const age = ref(18);
         age.value = 29; // 响应式修改
         // ref 支持基础类型和引用类型
@@ -128,7 +129,7 @@ export default {
         const a = manrea.age;
         const o = manrea.obj;
 
-        // 解构都会失去响应性
+        // !注意 解构都会失去响应性，props传递也会失去响应式
         // 可使用toRefs解构
         const { age: age1 } = manref.value;
         const { age: age2 } = manrea;
@@ -267,7 +268,7 @@ export default {
     <button @click="emit('emit1', 666)">alertName</button>
     <button @click="emit('emit1', 666)">alertName</button>
     <!-- 父组件可以直接定义子组件原生事件，省去.native修饰符。 -->
-    <!-- 父组件组件可以通过@hook:mounted监听子组件，也可以用子组件各个阶段周期发布this.$emit的办法，然后父组件监听 -->
+    <!-- 父组件组件可以通过 @hook:mounted 监听子组件，也可以用子组件各个阶段周期发布 this.$emit 的办法，然后父组件监听 -->
     <keepalive
       @click="childClick"
       @hook:mounted=""
