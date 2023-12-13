@@ -70,7 +70,7 @@ export default {
 
         // 异步组件，网速慢或者十分耗性能时，异步加载组件，先静态，后动态，静态页面是一起渲染解析的。
         const AsyncKeepAlive = defineAsyncComponent(() => import('../KeepAlive/index.vue'));
-        // 也可以使用   <Suspense></Suspense>包裹
+        // 也可以使用   <Suspense></Suspense>包裹，React类也有这个 组件。后续缓存react还可以使用 Cache 标签，和keepalive类似。
 
         // 一些判断方法
         // isRef, isReactive, isProxy,isReadonly;
@@ -270,12 +270,12 @@ export default {
     <!-- 父组件可以直接定义子组件原生事件，省去.native修饰符。 -->
     <!-- 父组件组件可以通过 @hook:mounted 监听子组件，也可以用子组件各个阶段周期发布 this.$emit 的办法，然后父组件监听 -->
     <keepalive
-      @click="childClick"
-      @hook:mounted=""
-      @mounted=""
-      ref="keepalive"
-      class="test-class"
-      :name="this.name"
+        @click="childClick"
+        @hook:mounted=""
+        @mounted=""
+        ref="keepalive"
+        class="test-class"
+        :name="this.name"
     ></keepalive>
 </template>
 
