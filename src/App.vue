@@ -18,7 +18,7 @@ function testHello(params) {
   <router-view v-if="!$route.meta.keepAlive" /> -->
 
   <!-- vue3 -->
-  <!-- 缓存name名称为aaa和bbb的组件，插槽不用写slot标签，组件替代之前的插槽名字替换为v-slot直接插入组件 -->
+  <!-- 缓存name名称为aaa和bbb的组件 -->
   <!-- <router-view v-slot="{ Component }">
     <keep-alive :include="['CompositionAPI',]">
       <component :is="Component" />
