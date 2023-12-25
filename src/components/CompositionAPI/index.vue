@@ -253,6 +253,8 @@ export default {
         },
     },
 };
+
+const event = 'click'
 </script>
 
 <template>
@@ -269,7 +271,9 @@ export default {
     <button @click="emit('emit1', 666)">alertName</button>
     <!-- 父组件可以直接定义子组件原生事件，省去.native修饰符。 -->
     <!-- 父组件组件可以通过 @hook:mounted 监听子组件，也可以用子组件各个阶段周期发布 this.$emit 的办法，然后父组件监听 -->
+    <!-- 动态事件名称 -->
     <keepalive
+        @[event]=""
         @click="childClick"
         @hook:mounted=""
         @mounted=""
