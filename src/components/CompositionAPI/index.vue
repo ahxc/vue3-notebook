@@ -255,6 +255,8 @@ export default {
 };
 
 const event = 'click'
+
+const memoList = []
 </script>
 
 <template>
@@ -269,11 +271,11 @@ const event = 'click'
     <button @click="alertName">alertName</button>
     <button @click="emit('emit1', 666)">alertName</button>
     <button @click="emit('emit1', 666)">alertName</button>
+    <!-- 动态事件名称 -->
     <!-- 父组件可以直接定义子组件原生事件，省去.native修饰符。 -->
     <!-- 父组件组件可以通过 @hook:mounted 监听子组件，也可以用子组件各个阶段周期发布 this.$emit 的办法，然后父组件监听 -->
-    <!-- 动态事件名称 -->
     <keepalive
-        @[event]=""
+        @[event].stop=""
         @click="childClick"
         @hook:mounted=""
         @mounted=""
@@ -281,6 +283,8 @@ const event = 'click'
         class="test-class"
         :name="this.name"
     ></keepalive>
+    <!-- v-memmo缓存dom只在依赖项发生变化时才渲染，注意必须有针对性的使用，因为memo会加大内存的使用。和callback差不多。 -->
+    <div v-memo="memoList"></div>
 </template>
 
 <style scoped lang="less">
