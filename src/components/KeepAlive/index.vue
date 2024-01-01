@@ -66,9 +66,11 @@ const ahxc = ref(null)
 
 <template>
     <div
-      @click="emit('emit1', 666)"
-      ref="ahxc"
-    >我只是名字叫keepalive记录vue3相关知识点</div>
+        @click="emit('emit1', 666)"
+        ref="ahxc"
+    >
+        我只是名字叫keepalive记录vue3相关知识点
+    </div>
 </template>
 
 <style scoped lang="less">

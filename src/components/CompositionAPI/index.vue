@@ -90,8 +90,8 @@ export default {
             // ! 版本3.3 引用数据类型 newValue 和 oldvalue 存在引用关联一致。
             console.log(`我监听到了 ref 基础数据和引用数据类型改变`, newValue, oldValue);
         }, {
-            immediate: true,// 先执行一次
-            deep: true// 对象要深度监听，ref的话也可以 sum.value
+            immediate: true,// 先执行一次，默认false
+            deep: true// 对象要深度监听，ref的话也可以 sum.value，默认false
         });
 
         // 可以通过context发布事件
@@ -114,7 +114,7 @@ export default {
         // const a = readonly(manrea) shallowReadonly 只读和浅只读
         // toRaw markRaw 变为原生对象和标记一个对象永不能成为响应式。
 
-        // reactive 仅支持响应式
+        // reactive 仅支持引用类型
         const manrea = reactive({ name: 'ahxc', age: 18 }); // proxy 对象
         // 调用方式不同
         manref.value.age = 29;
@@ -247,6 +247,7 @@ export default {
     },
     methods: {
         childClick() {
+            // ref
             // 如果是 composition api内部，需定义 const keepalive = ref(null)，
             // 这点和hook类似。  const myRef = useRef(null); <Com ref={myRef} />
             console.log(this.$refs.keepalive.alertInfo());
