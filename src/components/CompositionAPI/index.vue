@@ -258,14 +258,24 @@ export default {
 const event = 'click'
 
 const memoList = []
+
+// teleport 组件绑定ref实例
+const teleportTestRef = ref()
 </script>
 
 <template>
     <!-- teleport组件，将包裹组件挂载到指定id或标签内部，利用插入children的原理，这能解决一些层级问题，比如模态，通知弹窗等绝对定位元素 -->
+    <!-- 也可以使用:to绑定ref实例 -->
     <teleport to='#teleport-test'>
         测试
     </teleport>
-    <div id="teleport-test"></div>
+    <teleport :to='teleportTestRef'>
+        测试
+    </teleport>
+    <div
+        id="teleport-test"
+        ref="teleportTestRef"
+    ></div>
     <div ref="ahxc">{{ name }}</div>
     <div ref="ahxc">{{ age1 }}</div>
     <div>pinia:{{ store.hello }}</div>
@@ -275,11 +285,12 @@ const memoList = []
     <!-- 动态事件名称 -->
     <!-- 父组件可以直接定义子组件原生事件，省去.native修饰符。 -->
     <!-- 父组件组件可以通过 @hook:mounted 监听子组件，也可以用子组件各个阶段周期发布 this.$emit 的办法，然后父组件监听 -->
+    <!-- @hook是vue2，@vue是vue3并没正式发布。 -->
     <keepalive
         @[event].stop=""
         @click="childClick"
         @hook:mounted=""
-        @mounted=""
+        @vue:mounted=""
         ref="keepalive"
         class="test-class"
         :name="this.name"
