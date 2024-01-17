@@ -68,6 +68,7 @@ const ahxc = ref(null)
     <div
         @click="emit('emit1', 666)"
         ref="ahxc"
+        :props="props"
     >
         我只是名字叫keepalive记录vue3相关知识点
     </div>
