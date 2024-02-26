@@ -90,8 +90,8 @@ export default {
             // ! 版本3.3 引用数据类型 newValue 和 oldvalue 存在引用关联一致。
             console.log(`我监听到了 ref 基础数据和引用数据类型改变`, newValue, oldValue);
         }, {
-            immediate: true,// 先执行一次，默认false
-            deep: true// 对象要深度监听，ref的话也可以 sum.value，默认false
+            immediate: false,// 先执行一次，默认false
+            deep: false// 对象要深度监听，ref的话也可以 sum.value，默认false
         });
 
         // 可以通过context发布事件
