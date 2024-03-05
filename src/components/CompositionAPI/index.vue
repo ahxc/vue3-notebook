@@ -91,7 +91,7 @@ export default {
             console.log(`我监听到了 ref 基础数据和引用数据类型改变`, newValue, oldValue);
         }, {
             immediate: false,// 先执行一次，默认false
-            deep: false// 对象要深度监听，ref的话也可以 sum.value，默认false
+            deep: false// 对象要深度监听，ref的话也可以 sum.value，默认true
         });
 
         // 可以通过context发布事件
@@ -278,6 +278,7 @@ const teleportTestRef = ref()
     ></div>
     <div ref="ahxc">{{ name }}</div>
     <div ref="ahxc">{{ age1 }}</div>
+    <!-- 其他方法也直接调用方法名即可 -->
     <div>pinia:{{ store.hello }}</div>
     <button @click="alertName">alertName</button>
     <button @click="emit('emit1', 666)">alertName</button>
