@@ -605,3 +605,16 @@ npm run dev
   > 过滤器虽然这看起来很方便，但它需要一个自定义语法，打破大括号内表达式是 “只是 JavaScript” 的假设，这不仅有学习成本，而且有实现成本！建议用方法调用或计算属性去替换过滤器。
   >
 - ......
+
+## 疑难杂症
+### 1.scoped与:deep
+```html
+<style scoped>  
+:deep(.class1) {  
+  color: red;  
+}  
+</style>
+// 加deep： [data-v-...] .class1 {}
+// 不加deep：.class1[data-v-...] {}
+// class1若写在根节点则不会生效，因为这编译成了后代选择器，根节点不可能成为边界的后代，记住data-v作为边界只要启用了scoped，总会存在于选择器中 
+````
